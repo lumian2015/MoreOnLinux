@@ -1,0 +1,590 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Basic script writing · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="chapter1.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="chapter1.html">
+            
+                <a href="chapter1.html">
+            
+                    
+                    Basics on bash operators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="basic-scrip-writing.html">
+            
+                <a href="basic-scrip-writing.html">
+            
+                    
+                    Basic script writing
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Basic script writing</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="elements-in-bash-scripts">Elements in Bash Scripts </h2>
+<p>So far, we have been executing commands inside the Bash shell. To create the simplest Bash <em>script</em>, you may gather a list of commands, put it into a file, e.g.<a href="https://eric-lo.github.io/3150/3-Script/code/myscript.sh" target="_blank"><code>myscript.sh</code></a>, and then execute<code>bash ./myscript.sh</code>.</p>
+<p>Nevertheless, we can do more than executing commands sequentially and independently, e.g. establish a control flow for automating repeated tasks. Let us learn the basic elements for writing Bash scripts.</p>
+<h3 id="running-a-script">Running a script </h3>
+<p>To run a bash script, you may pass it as an argument to the command<code>bash</code>, e.g. to execute<code>myscript.sh</code></p>
+<p><code>$ bash ./myscript.sh</code></p>
+<p>Alternatively, we may put a <a href="https://en.wikipedia.org/wiki/Shebang_%28Unix%29" target="_blank"><em>shebang</em></a>,<code>#!/bin/bash</code>, at the beginning of a script. This shebang tells the OS to use<code>/bin/bash</code>to parse and run the script.</p>
+<p>Then, mark the script as executable using<code>chmod</code>(option<code>+x</code>means marking the file as executable, and option <code>a</code>before <code>+x</code> means this change applies to all users&quot;),</p>
+<p><code>$ chmod a+x ./myscript.sh</code></p>
+<p>And the script can be run directly,</p>
+<p><code>$ ./myscript.sh</code></p>
+<h3 id="variable">Variable </h3>
+<h4 id="global-variables">Global variables </h4>
+<p>Since there are <strong>no data type in Bash script</strong>(unlike C), the same variable may hold numbers or characters at different times. Simply define and assign a value to a variable using the syntax<code>[variable name]=[value]</code>, e.g.</p>
+<p><code>mynum=3150</code></p>
+<p><code>mystr=&quot;hello world&quot;</code></p>
+<p><strong>Beware that spaces are not allowed before or after the assignment operator</strong><code>=</code><strong>.</strong></p>
+<p>By default, variables are <em>global</em> and its assigned value are visible to statements that run after the assignment.</p>
+<p>To make a variable <em>local</em>, specify<code>local</code>explicitly before the variable name, e.g.</p>
+<p><code>local mynum=315</code></p>
+<p>Other than assigning a value, we may &quot;grow&quot; a variable by appending values using the operator<code>+=</code>, e.g.</p>
+<p><code>mystr=&quot;csci&quot;</code></p>
+<p><code>mystr+=&quot;3150&quot;</code></p>
+<p>and<code>mystr</code>now contains &quot;csci3150&quot;.</p>
+<p>To retrieve the value of a variable, we use the syntax<code>${variable name}</code>. The<code>$</code>means value retrieval, while<code>{}</code>is used to separate the variable name from other characters. The following script <a href="https://eric-lo.github.io/3150/3-Script/code/variable.sh" target="_blank">variable.sh</a> shows an example on appending values to a variable, and when<code>{}</code>is necessary.</p>
+<pre><code>#!/bin/bash
+
+mynum=3150
+course_code=&quot;csci&quot;
+mystr=${course_code}
+
+# grow mystr from csci to &quot;csci3150&quot; 
+echo &quot;Before: ${mystr}&quot;
+mystr+=${mynum}
+echo &quot;After: ${mystr}&quot;
+
+# when curly braces are necessary 
+echo &quot;${course_code}3150 is a course about OS&quot;
+</code></pre><h3 id="array">Array </h3>
+<p>To declare an empty array<code>myarray</code>,</p>
+<p><code>myarray=()</code></p>
+<p>We may also assign values on declaration as follow, with each value separated by a space,</p>
+<p><code>myarray=(&quot;three&quot; 1 &quot;five&quot; 0)</code></p>
+<p>The array index starts from 0 (as in C), so if we want to replace the third item as<code>eight</code>, we can execute</p>
+<p><code>myarray[2]=&quot;eight&quot;</code></p>
+<p>We may add an item with any positive index, e.g.</p>
+<p><code>myarray[5]=&quot;!&quot;</code></p>
+<p>To get the first item,</p>
+<p><code>${myarray[0]}</code></p>
+<p>To get the whole array,</p>
+<p><code>${myarray[@]}</code></p>
+<p>To get the number of items in the array,</p>
+<p><code>${#myarray[@]}</code></p>
+<p>To get the keys used in the array,</p>
+<p><code>${!myarray[@]}</code></p>
+<p>Look into and execute <a href="https://eric-lo.github.io/3150/3-Script/code/array.sh" target="_blank">array.sh</a> which includes examples on the usage listed above.</p>
+<h4 id="strings">Strings </h4>
+<p>Strings can be though as an array of characters, and we may get its length by</p>
+<p><code>${#mystr}</code></p>
+<p>Also, the string can be split as if an array, see <a href="https://eric-lo.github.io/3150/3-Script/code/string.sh" target="_blank">string.sh</a> for an example.</p>
+<pre><code>#!/bin/bash 
+
+mylongstr=&quot;this is a long string&quot;
+
+echo &quot;My string: ${mylongstr}&quot;
+echo &quot;&quot;
+
+echo &quot;Number of characters in string: ${#mylongstr}&quot;
+echo &quot;&quot;
+
+echo &quot;Splitting my string like an array:&quot;
+for word in ${mylongstr[@]}; do
+    echo &quot;${word}&quot;
+done
+echo &quot;&quot;
+</code></pre><h3 id="arithmetic">Arithmetic </h3>
+<p>To do simple arithmetic on <strong>whole numbers </strong>in Bash, you can put the arithmetic expression inside a double parentheses after a dollar sign<code>$(())</code>.</p>
+<p>For example, to store the sum of two variables<code>a</code>and<code>b</code>into<code>mysum</code>,</p>
+<pre><code>#!/bin/bash 
+
+a=2
+b=3
+
+mysum=$((a+b))
+echo &quot;Sum of a=${a} and b=${b} is ${mysum}&quot;
+</code></pre><p>Other than summation, we can do subtraction (<code>-</code>), multiplication (<code>*</code>), division (<code>/</code>) and also get the remainder of division (<code>%</code>).</p>
+<p>Besides, you can increment/decrement counters using the operator<code>++</code>and<code>--</code>, e.g. to increment or decrement variable<code>counter</code></p>
+<p><code>(( counter++ ))</code>, or<code>(( counter-- ))</code></p>
+<p>The<code>$</code>can be omitted in this case, as we are not retrieving the value. We will find the increment/decrement syntax handy in the examples on <a href="https://eric-lo.github.io/3150/3-Script/lab3.html#loop" target="_blank">loops</a> later on.</p>
+<h3 id="conditional-statements-if-then-else-">Conditional statements, if ... then ... else ... </h3>
+<p>The format of &quot;If-then-else&quot; statements in Bash script is as follows:</p>
+<p><strong>if </strong><em>expression </em><strong>then </strong><em>statement </em><strong>else </strong><em>statement </em><strong>fi</strong></p>
+<p>or</p>
+<p><strong>if </strong><em>expression </em><strong>then </strong><em>statement </em><strong>elif </strong><em>expression </em><strong>then </strong><em>statement </em><strong>else </strong><em>statement </em><strong>fi</strong></p>
+<p>Let illustrate the syntax with an example <a href="https://eric-lo.github.io/3150/3-Script/code/condition.sh" target="_blank">condition.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+A=1
+
+if [ $((A)) -eq 0 ]; then
+  echo &quot;A equals to 0&quot;
+elif [ $((A)) -gt 0 ]; then
+  echo &quot;A is greater than 0&quot;
+else
+  echo &quot;A is smaller than 0&quot;
+fi
+</code></pre><p>which prints &quot;A is greater than 0&quot; for<code>A=1</code>.</p>
+<p>Note that we use arithmetic expression on variable<code>A</code>, i.e.<code>$((A))</code>, instead of simply use<code>${A}</code>when<code>A</code>contains a number, let us look into the difference between the two.</p>
+<p>First, we assign an expression to<code>A</code>instead of a number, e.g. replace<code>A=1</code>with<code>A=1+2+3+4</code>. The script runs correctly without an error, since<code>$((A))</code>is expanded to<code>$((1+2+3+4))</code>and is evaluated to<code>10</code>when the conditions,<code>$((A)) -eq 0</code>and<code>$((A)) -gt 0</code>, are checked.</p>
+<p>Then, we replace<code>$((A))</code>with<code>${A}</code>, and run the script. The script ends up with errors, since the expression<code>1+2+3+4</code>is not evaluated when the synxtax is<code>${A}</code>.</p>
+<p>To summarize,<code>$(())</code>works when<code>A</code>is either a number or an arithmetic expression, while<code>${}</code>works only when<code>A</code>is a number.</p>
+<h4 id="useful-expressions">Useful expressions </h4>
+<h5 id="numeric-values">Numeric values </h5>
+<ul>
+<li>Less than,<code>-lt</code></li>
+<li>Less than or equal,<code>-le</code></li>
+<li>Equal,<code>-eq</code></li>
+<li>Not equal,<code>-ne</code></li>
+<li>Greater than or equal,<code>-ge</code></li>
+<li>Greater than,<code>-gt</code></li>
+</ul>
+<p>and you may refer to the <a href="https://eric-lo.github.io/3150/3-Script/lab3.html#conditionex" target="_blank">example on conditional statement</a>.</p>
+<h5 id="strings">Strings</h5>
+<p>We may check if a variable is empty using<code>-z</code>, e.g.</p>
+<pre><code>#!/bin/bash 
+
+mystr=&quot;This is an OS course&quot;
+
+if [ -z &quot;${mystr}&quot; ]; then
+  echo &quot;Ops... the string is empty.&quot;
+else
+  echo &quot;The string is not empty.&quot;
+fi
+</code></pre><h5 id="files-and-directories">Files and directories</h5>
+<p>We may check if a file exists and is <em>regular</em>(see <a href="http://tldp.org/LDP/abs/html/fto.html" target="_blank">definition of regular files</a>) using<code>-f</code>, e.g.</p>
+<pre><code>#!/bin/bash 
+
+if [ -f example.txt ]; then
+  echo &quot;File example.txt exists.&quot;
+else
+  echo &quot;Ops... example.txt does not exist.&quot;
+fi
+</code></pre><p>We may also check if a directory exists using<code>-d</code>, e.g. to create directory<code>testdir</code>if it does exists, otherwise report its existence</p>
+<pre><code>#!/bin/bash 
+
+if [ ! -d testdir ]; then
+  mkdir testdir
+else
+  echo &quot;Directory testdir exists&quot;
+fi
+</code></pre><p>See the GNU manual <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html" target="_blank">here</a> for more expressions for files and strings</p>
+<h3 id="loops">Loops </h3>
+<h4 id="for-loop">for-loop </h4>
+<p>The format is</p>
+<p><strong>for </strong>item <strong>in </strong>list <strong>do </strong><em>statements </em><strong>done</strong></p>
+<p>An example <a href="https://eric-lo.github.io/3150/3-Script/code/forloop.sh" target="_blank">forloop.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+A=(&quot;a&quot; &quot;b&quot; &quot;c&quot;)
+
+for i in {1..10}; do
+  echo &quot;${i}&quot;
+done
+
+for char in ${A[@]}; do
+  echo &quot;${char}&quot;
+done
+</code></pre><p>prints 1 to 10 and then &apos;a&apos; to &apos;c&apos;, with each number or character on a new line.</p>
+<h4 id="while-loop">while-loop </h4>
+<p>The format is</p>
+<p><strong>while </strong><em>expression </em><strong>do </strong><em>statements </em><strong>done</strong></p>
+<p>An example <a href="https://eric-lo.github.io/3150/3-Script/code/whileloop.sh" target="_blank">whileloop.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+A=0
+
+while [ $((A)) -lt 10 ]; do
+  echo $((A))
+  (( A++ ))
+done
+</code></pre><p>prints 0 to 9, with each number on a new line.</p>
+<h3 id="input-output">Input / output </h3>
+<h4 id="input-arguments-applies-to-both-functions-and-scripts-">Input arguments (applies to both functions and scripts) </h4>
+<p>The input arguments are obtainable from<code>$@</code>.</p>
+<p>The number of arguments is obtainable from<code>$#</code>.</p>
+<p>To specify the <em>n</em>-th argument, use<code>$n</code>, e.g. first argument is<code>$1</code>.<code>$0</code>is a special argument that stores the name of the script. For example, this script (<a href="https://eric-lo.github.io/3150/3-Script/code/argument.sh" target="_blank">argument.sh</a>) prints the arguments to the script.</p>
+<pre><code>#!/bin/bash 
+
+echo &quot;You called $0, with&quot;
+
+if [ $# -eq 0 ]; then
+    echo &quot;no arguments...&quot;
+    exit 0
+fi
+
+counter=0
+for i in &quot;$@&quot;; do
+    (( counter++ ))
+    echo &quot;Arg[${counter}]: ${i}&quot;
+done
+</code></pre><p>Try: Please remove the double quotes from<code>&quot;$@&quot;</code>in above script and try the following command<code>./arguments.sh First &quot;Second argument&quot;</code></p>
+<h4 id="capture-stdout-of-commands">Capture<code>stdout</code>of commands </h4>
+<p>We may capture and store the output of a command to a variable, e.g. to execute the command<code>ls</code>and store the result into the variable<code>output</code></p>
+<p><code>output=$(ls)</code></p>
+<p>Note that the syntax<code>$(command)</code>means executing<code>command</code>(which is different from<code>$((expression))</code>for evaluating arithmetic expressions).</p>
+<p>The exit status of the last executed command is always stored in<code>$?</code>.</p>
+<p>See the following script, <a href="https://eric-lo.github.io/3150/3-Script/code/capture.sh" target="_blank">capture.sh</a>, which includes examples on the above usage,</p>
+<pre><code>#!/bin/bash 
+
+# capture stdout 
+output=$(ls)
+echo &quot;&quot;
+echo &quot;Output of ls: ${output}&quot;
+
+# where is the exit status? 
+echo &quot;&quot;
+haha; echo &quot;haha gives $?&quot;;
+
+echo &quot;&quot;
+echo &quot;hello_world&quot;; echo &quot;echo gives $?&quot;
+</code></pre><h4 id="go-through-a-file">Go through a file</h4>
+<p>We may loop through a file using a while-loop (<a href="https://eric-lo.github.io/3150/3-Script/code/file_displayer.sh" target="_blank">file_displayer.sh</a>),</p>
+<pre><code>#!/bin/bash 
+
+if [ $# -lt 1 ]; then
+    echo &quot;$0 [file to display]&quot;
+    exit 1
+fi
+
+if [ ! -f $1 ]; then
+    echo &quot;Cannot display non-regular files&quot;
+    exit 1
+fi
+
+while read line; do
+  echo &quot;${line}&quot;
+done &lt; $1
+</code></pre><p>The script prints the file specified as the first input argument, e.g. to print<code>forloop.sh</code>,</p>
+<p><code>$ ./file_displayer.sh forloop.sh</code></p>
+<p>Except that trailing spaces are trimmed, e.g. indentations before<code>echo</code>and<code>exit</code>(you may compare the output against that from<code>$ cat forloop.sh</code>to see the difference).</p>
+<p>The<code>while</code>-loop evaluates<code>read line</code>, with content read (operator<code>&lt;</code>) from the file named in<code>$f</code>. Note that if we omit both the redirection operator (<code>&lt;</code>) and file name,<code>read</code>will read input from standard input stream (<code>stdin</code>) instead.</p>
+<h3 id="functions">Functions </h3>
+<p>The format is</p>
+<p><strong>function </strong>function_name <strong>{ </strong><em>statements </em><strong>}</strong></p>
+<p>For example in <a href="https://eric-lo.github.io/3150/3-Script/code/function.sh" target="_blank">function.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+function addition {
+  result=$(($1 + $2))
+}
+
+function main {
+    local a=1
+    local b=2
+    result=
+    addition ${a} ${b}
+    echo &quot;${a}+${b}=${result}&quot;
+}
+
+main
+</code></pre><p>we have two functions. The first one named<code>addition</code>adds up the first two input arguments. The second one named<code>main</code>calls<code>addition</code>and prints the result of adding<code>a=1</code>and<code>b=2</code>.</p>
+<p>After executing it, you get &quot;1+2=3&quot; printed.</p>
+<p>We can use<code>addition &quot;$@&quot;</code>to pass the input arguments to the function. For example in <a href="https://eric-lo.github.io/3150/3-Script/code/function2.sh" target="_blank">function2.sh</a>,</p>
+<h2 id="examples-on-content-processing">Examples on Content Processing </h2>
+<h3 id="string-splitting-with-ifs-">String splitting with<code>IFS</code> </h3>
+<p><code>IFS</code>stands for &quot;<em>Internal Field Separator</em>&quot;, which is an environment variable that determines boundaries of words, i.e., it contains word <em>delimiters</em>. By default, the delimiters are space, tab, and newline character.</p>
+<p>We may change<code>IFS</code>during runtime. For example, to print only words between full-stops (.), we may assign a full-stop to<code>IFS</code>, see <a href="https://eric-lo.github.io/3150/3-Script/code/ifs.sh" target="_blank">ifs.sh</a></p>
+<pre><code>#!/bin/bash 
+
+mystr=&quot;name.email.phone.remarks&quot;
+
+IFS=&apos;.&apos;
+for word in ${mystr[@]}; do
+  echo $word
+done
+
+# restore  IFS 
+IFS=&quot; &quot;$&apos;\n&apos;$&apos;\t&apos;
+</code></pre><h3 id="string-splitting-using-awk-and-print-designated-fields">String splitting using<code>awk</code>, and print designated fields </h3>
+<p>If we want to</p>
+<ol>
+<li>split a string &quot;first_name,middle_name,last_name&quot; based on a comma (<code>,</code>), and</li>
+<li>print only &quot;first_name&quot; and &quot;last_name&quot; with a space in between</li>
+</ol>
+<p>we may use the command<code>awk</code>as follows</p>
+<p><code>$ echo &quot;first_name,middle_name,last_name&quot; | awk -F&apos;,&apos; &apos;{print $1&quot; &quot;$3}&apos;</code></p>
+<p>This command first pipes the string output by<code>echo</code>as the input of<code>awk</code>. Then,<code>awk</code>takes the character specified after the option<code>-F</code>as a delimiter to break the string.<code>awk</code>prints the first field (<code>$1</code>) and the third field (<code>$3</code>), with a space (<code>&quot; &quot;</code>) in between.</p>
+<p>Given a comma separated value (csv) file <a href="https://eric-lo.github.io/3150/3-Script/code/data.csv" target="_blank">data.csv</a>, we may list only the first and third column of the file using the following script <a href="https://eric-lo.github.io/3150/3-Script/code/process_csv.sh" target="_blank">process_csv.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+while read line; do
+  echo &quot;${line}&quot; | awk -F&apos;,&apos; &apos;{print $1&quot; &quot;$3}&apos;
+done &lt; data.csv
+</code></pre><h3 id="counting-lines-words-and-characters-wc-">Counting lines, words, and characters,<code>wc</code> </h3>
+<p><code>wc</code>allows us to count characters (with option<code>-c</code>), words (with option<code>-w</code>) and lines (with option<code>-l</code>). It goes through files when they are provided. Otherwise, it processes input from<code>stdin</code>.</p>
+<p>For example in <a href="https://eric-lo.github.io/3150/3-Script/code/file_summary.sh" target="_blank">file_summary.sh</a>,</p>
+<pre><code>#!/bin/bash 
+
+for f in &quot;$@&quot;; do
+    counter=0
+    wc -l ${f}
+    while read line; do
+        (( counter ++ ))
+        chars=$(echo -n ${line} | wc -c)
+        words=$(echo -n ${line} | wc -w)
+        echo &quot;Line $((counter)): ${chars} chars, ${words} words&quot;
+    done &lt; ${f}
+done
+</code></pre><p>files are accepted as input arguments. For each file, the script prints the total number of lines together with the file name, followed by the number of characters and words in each line. Note <strong>the option </strong><code>-n</code><strong> suppresses </strong><code>echo</code><strong>from adding a newline character at the end of a string</strong>.</p>
+<h2 id="exercise">Exercise </h2>
+<h3 id="variables">Variables </h3>
+<ol>
+<li>Run <a href="https://eric-lo.github.io/3150/3-Script/code/global_vs_local.sh" target="_blank">global_vs_local.sh</a> and study the difference between global variables (<code>global1</code>and<code>global2</code>) and local variables (<code>local1</code>)</li>
+</ol>
+<h3 id="content-processing">Content processing </h3>
+<ol>
+<li>How to print each matching phrase on a newline using<code>grep</code>?</li>
+<li>Write a script to output a summary on a set of files in csv format. The set of files are given as input arguments. Each line shows (1) the file name, (2) the total number of characters, (3) the total number of words, and (4) the total number of lines, in a file</li>
+<li>How to modify the script in this <a href="https://eric-lo.github.io/3150/3-Script/lab3.html#ex4" target="_blank">example</a> to avoid trailing spaces being trimmed? (or think about why the spaces are  &quot;trimmed&quot; in the first place? :) )</li>
+</ol>
+<h2 id="reference">Reference </h2>
+<ul>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html" target="_blank">Bash Programming - Introduction HOW-TO</a><ul>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-5.html" target="_blank">Variables</a></li>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-10.html#ss10.2" target="_blank">Arithmetic</a></li>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-6.html" target="_blank">If ... then ... else ...</a></li>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-7.html" target="_blank">Loops</a></li>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-8.html" target="_blank">Functions</a></li>
+</ul>
+</li>
+<li><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/" target="_blank">Bash Guide for Beginners</a><ul>
+<li><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_10_02.html" target="_blank">Array</a></li>
+</ul>
+</li>
+<li><a href="http://tldp.org/LDP/abs/html/" target="_blank">Advanced Bash-Scripting Guide</a><ul>
+<li><a href="http://tldp.org/LDP/abs/html/localvar.html" target="_blank">Local variables</a></li>
+<li><a href="http://www.tldp.org/LDP/abs/html/io-redirection.html" target="_blank">I/O redirection</a></li>
+<li><a href="http://tldp.org/LDP/abs/html/internalvariables.html" target="_blank">Internal field separator<code>IFS</code></a></li>
+</ul>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="chapter1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Basics on bash operators">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Basic script writing","level":"1.3","depth":1,"previous":{"title":"Basics on bash operators","level":"1.2","depth":1,"path":"chapter1.md","ref":"chapter1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"basic-scrip-writing.md","mtime":"2017-09-13T09:21:34.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-13T09:28:41.982Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
